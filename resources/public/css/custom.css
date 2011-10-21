@@ -22,6 +22,34 @@ div.comments:hover {
 	background-color: #eeeeee;
 }
 
+div.users {
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	border: 1px solid #ddd;
+	padding: 10px;
+	padding-bottom: 0px;
+	margin-bottom: 5px;
+}
+
+div.users:hover {
+	background-color: #eeeeee;
+	cursor: pointer;
+}
+
+
+
+.align-left {
+	float: left;
+}
+.align-right {
+	float: right;
+}
+
+.clear-align {
+	clear: both;
+}
+
 hr {
 	margin-bottom: 5px;
 }

@@ -23,12 +23,12 @@
 (defpage "/" []
   (resp/redirect "/ideas/"))
 
-(defpartial comment-partial [{:keys [comment username]}]
+(defpartial comment-partial [{:keys [comment username created-at]}]
   ;[:div {:class "row clearfix"}
   ; [:div {:class "twelve columns omega"}
    [:div.comments 
     [:p comment]
-    [:p username]])
+    [:small "- " username " | " (ideas/get-elapsed-time (date-util/from-long created-at))]])
 
 (defpartial new-comment-partial []
   (vali/on-error :comment error-text)
@@ -49,7 +49,7 @@
                     (submit-button {:class "submit"} "add comment")))
         [:hr.small]
         [:h4 (str (count comments) " Comments")] 
-        (map comment-partial comments)]
+        (map comment-partial (sort-by :created-at #(compare %2 %1) comments))]
        [:hr.small])]))
 
 (defpage [:post "/ideas/idea/view/:handle/add-comment"] {:keys [handle comment]}

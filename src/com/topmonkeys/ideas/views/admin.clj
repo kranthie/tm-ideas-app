@@ -24,7 +24,7 @@
 
 (defpage "/ideas/login" {:as user}
   (if (users/is-admin?)
-    (resp/redirect "/ideas/admin")
+    (resp/redirect "/ideas/admin/ideas/")
     (common/home-layout
       [:header
        [:h2 "Login"]]
@@ -35,15 +35,42 @@
 
 (defpage [:post "/ideas/login"] {:as user}
          (if (users/login user)
-           (resp/redirect "/ideas/admin")
+           (resp/redirect "/ideas/admin/ideas/")
             (render "/ideas/login" user)))
 
 (defpage "/ideas/logout" {}
   (users/logout)  
   (resp/redirect "/ideas/"))
 
-; Admin Page
-(defpage "/ideas/admin" {}
-         (common/admin-layout
-           [:header
-              [:h2 "Admin"]]))
+; Admin - Ideas Page
+(defpage "/ideas/admin/ideas/" {}
+  (common/admin-layout
+    [:header
+     [:h2 "Admin|Ideas"]]))
+
+; Admin - Users Page
+(defpartial user-partial [{:keys [username password] :as user}]
+   [:div.users {:onclick (str "location.href='" "/ideas/admin/users/view/" username "'")}
+    [:h4.align-left (link-to {:class "user-link"} (str "/ideas/admin/users/view/" username) username)]
+    [:small.align-right (link-to (str "/ideas/admin/users/edit/" username) "Edit") " | " (link-to (str "/ideas/admin/users/remove/" username) "Remove") ]
+    [:div.clear-align]])
+
+(defpartial users-page [users-coll]
+  (map user-partial users-coll))
+
+(defpage "/ideas/admin/users/" {}
+  (common/admin-layout
+    [:header
+     [:h2.align-left "Admin|Users"]
+     [:a.align-right "Add user"]
+     [:div.clear-align]]
+    (users-page (users/get-all-users))))
+
+(defpartial user-view-page [user]
+  (common/admin-layout
+    (users-page user)))
+
+(defpage "/ideas/admin/users/view/:username" {:keys [username]}
+  (if-let [user (users/get-user-by-username username)]
+    (user-view-page [user])))
+

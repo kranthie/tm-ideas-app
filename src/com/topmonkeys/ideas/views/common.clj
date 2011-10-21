@@ -64,7 +64,7 @@
     (build-body links content)))
 
 ;; Home Page Layout
-(def home-links [{:url "/ideas/admin" :text "Admin"}
+(def home-links [{:url "/ideas/admin/ideas/" :text "Admin"}
                  {:url "/ideas/contact" :text "Contact Us"}])
 
 (defpartial home-layout
@@ -72,8 +72,8 @@
   (layout home-links content))
 
 ;; Admin Page Layout
-(def admin-links [{:url "/ideas/admin" :text "Ideas"}
-                  {:url "/ideas/admin/users" :text "Users"}
+(def admin-links [{:url "/ideas/admin/ideas/" :text "Ideas"}
+                  {:url "/ideas/admin/users/" :text "Users"}
                   {:url "/ideas/logout" :text "Logout"}])
 
 (defpartial admin-layout
