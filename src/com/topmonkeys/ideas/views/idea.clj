@@ -28,7 +28,8 @@
   ; [:div {:class "twelve columns omega"}
    [:div.comments 
     [:p comment]
-    [:small "- " username " | " (ideas/get-elapsed-time (date-util/from-long created-at))]])
+    [:div.comment-footer
+     [:small "- " username " | " (ideas/get-elapsed-time (date-util/from-long created-at))]]])
 
 (defpartial new-comment-partial []
   (vali/on-error :comment error-text)

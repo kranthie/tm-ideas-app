@@ -13,13 +13,22 @@ div.comments {
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	border: 1px solid #ddd;
-	padding: 10px;
+	/*padding: 10px;*/
 	padding-bottom: 0px;
-	margin-bottom: 5px;
+	margin-bottom: 15px;
 }
 
 div.comments:hover {
 	background-color: #eeeeee;
+}
+
+div.comment-footer {
+	position: relative;;
+	width: 100%;
+	background-color: #eeeeee;
+	bottom: 0; 
+	left: 0; 
+	height: 20px; 
 }
 
 div.users {
@@ -53,7 +62,6 @@ div.users:hover {
 hr {
 	margin-bottom: 5px;
 }
-
 div.footer { 
 		position: fixed;
 		width: 100%;

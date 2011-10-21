@@ -66,9 +66,22 @@
      [:div.clear-align]]
     (users-page (users/get-all-users))))
 
+(defpartial user-view-partial [{:keys [username name email] :as user}]
+  [:div
+   (println user)
+   [:h4 (link-to {:class "user-link"} (str "/ideas/admin/users/view/" username) username)]]
+  [:div
+   [:p.align-left "Name"][:p.align-right name]
+   [:div.clear-align]
+   [:p.align-left "Email"][:p.align-right email]
+   [:div.clear-align]])
+
 (defpartial user-view-page [user]
   (common/admin-layout
-    (users-page user)))
+    [:header
+     [:h2.align-left "Admin|Users"]
+     [:div.clear-align]]
+    (user-view-partial user)))
 
 (defpage "/ideas/admin/users/view/:username" {:keys [username]}
   (if-let [user (users/get-user-by-username username)]
