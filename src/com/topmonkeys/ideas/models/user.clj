@@ -10,12 +10,26 @@
 
 (def users-coll :users)
 
+;; Common
+(defn valid-user? [{:keys [username password name email] :as user}]
+  (println user)
+  (vali/rule (vali/has-value? username)
+             [:username "There must be a username."])
+  (vali/rule (vali/has-value? password)
+             [:password "There must be a password."])
+  (vali/rule (vali/has-value? name)
+             [:name "There must be a name."])
+  (vali/rule (vali/has-value? email)
+             [:email "There must be a email."])
+  (not (vali/errors? :username :password :name :email)))
+
 ;; Create
 (defn add-user
   "Adds a user."
-  [{:keys [username password]}]
-  (with-mongo db/connection
-    (insert! users-coll {:id (db/get-next-id users-coll) :username username :password password :created-at (to-long (now))})))
+  [{:keys [username password name email] :as user}]
+  (when (valid-user? user)
+    (with-mongo db/connection
+      (insert! users-coll {:id (db/get-next-id users-coll) :username username :password password :name name :email email :created-at (to-long (now))}))))
 
 ;; Read
 (defn get-all-users
@@ -39,9 +53,10 @@
 ;; Update
 (defn update-user
   "Updates a user."
-  [{:keys [username password]}]
-  (with-mongo db/connection
-    (fetch-and-modify users-coll {:username username} {:$set {:password password :updated-at (to-long (now))}} :return-new? true)))
+  [{:keys [username password name email] :as user}]
+  (when (valid-user? user)
+    (with-mongo db/connection
+      (fetch-and-modify users-coll {:username username} {:$set {:password password :name name :email email :updated-at (to-long (now))}} :return-new? true))))
 
 ;; Delete
 (defn remove-user
@@ -85,6 +100,6 @@
 (defn initialize
   "Initializes the users collection."
   []
-  (let [user {:username "admin" :password "password"}]
+  (let [user {:username "admin" :password "password" :name "Administrator" :email "temp@example.com"}]
     (when-not (get-user-by-username (:username user))
       (add-user user))))

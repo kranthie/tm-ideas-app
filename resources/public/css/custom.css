@@ -1,13 +1,21 @@
 @CHARSET "UTF-8";
 
 textarea {
-		min-height: 60px;
-		width: 99%;
-		-moz-border-radius: 4px;
-		-webkit-border-radius: 4px;
-		border-radius: 4px;
+	min-height: 60px;
+	width: 99%;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
 }
-    
+
+#edit-idea{
+	width: 99%;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+
+/* Comments */
 div.comments {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
@@ -26,11 +34,12 @@ div.comment-footer {
 	position: relative;;
 	width: 100%;
 	background-color: #eeeeee;
-	bottom: 0; 
-	left: 0; 
-	height: 20px; 
+	bottom: 0;
+	left: 0;
+	height: 20px;
 }
 
+/* Users */
 div.users {
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
@@ -46,11 +55,43 @@ div.users:hover {
 	cursor: pointer;
 }
 
+/* Ideas */
+div.ideas {
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	border: 1px solid #ddd;
+	padding: 10px;
+	padding-bottom: 0px;
+	margin-bottom: 5px;
+}
 
+div.ideas:hover {
+	background-color: #eeeeee;
+	cursor: pointer;
+}
 
+#user-details {
+	margin-top: 10px;
+	width: 100%;
+	border-collapse: collapse;
+	text-align: left;
+}
+
+#user-details td {
+	border-bottom: 1px solid #eeeeee;
+	padding: 6px 8px;
+}
+
+#user-details tbody tr:hover td {
+	background-color: #eeeeee;
+}
+
+/* Common */
 .align-left {
 	float: left;
 }
+
 .align-right {
 	float: right;
 }
@@ -62,18 +103,19 @@ div.users:hover {
 hr {
 	margin-bottom: 5px;
 }
-div.footer { 
-		position: fixed;
-		width: 100%;
-		background-color: #eeeeee;
-		bottom: 0; 
-		left: 0; 
-		height: 20px; 
+
+div.footer {
+	position: fixed;
+	width: 100%;
+	background-color: #eeeeee;
+	bottom: 0;
+	left: 0;
+	height: 20px;
 }
 
 a.footer img.footer {
-	width: 20px; 
-	height: 20px; 
+	width: 20px;
+	height: 20px;
 	padding: 50px 5px 5px 5 px;
 	margin: 5px 5px 5px 5 px;
 }

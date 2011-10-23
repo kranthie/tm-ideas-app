@@ -23,11 +23,11 @@
 (defpage "/" []
   (resp/redirect "/ideas/"))
 
-(defpartial comment-partial [{:keys [comment username created-at]}]
+(defpartial comment-partial [{:keys [html-comment username created-at]}]
   ;[:div {:class "row clearfix"}
   ; [:div {:class "twelve columns omega"}
    [:div.comments 
-    [:p comment]
+    [:p html-comment]
     [:div.comment-footer
      [:small "- " username " | " (ideas/get-elapsed-time (date-util/from-long created-at))]]])
 
@@ -35,13 +35,13 @@
   (vali/on-error :comment error-text)
   (text-area {:placeholder "comment"} :comment))
 
-(defpartial idea-partial [show-comments {:keys [title username handle description created-at comments] :as idea}]
+(defpartial idea-partial [show-comments {:keys [title username handle html-description created-at comments] :as idea}]
   (when idea
     [:div
      [:header
       [:h2 (link-to (str "/ideas/idea/view/" handle) title)]
       [:h6 "Added by " (link-to (str "/ideas/user/" username) username) " " (ideas/get-elapsed-time (date-util/from-long created-at))]]
-     [:div.doc-section description]
+     [:div.doc-section html-description]
      (if show-comments
        [:div.doc-section
         (when  (users/is-admin?)

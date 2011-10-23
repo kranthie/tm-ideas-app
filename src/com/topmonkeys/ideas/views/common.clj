@@ -35,11 +35,13 @@
 ; Builds html footer.
 (defpartial build-footer []
   [:div.footer
-   [:small "Powered by " 
-    [:a.footer {:href "http://clojure.org/" } "clojure"] " | "
-    [:a.footer {:href "http://webnoir.org/" } "noir"] " | "
-    [:a.footer {:href "http://www.mongodb.org/" } "mongodb"] " | "
-    [:a.footer {:href "http://getskeleton.com/" } "skeleton"]]])
+   [:small.align-left "Powered by " 
+    [:a.footer {:href "http://clojure.org/" :target "_blank"} "clojure"] " | "
+    [:a.footer {:href "http://webnoir.org/" :target "_blank"} "noir"] " | "
+    [:a.footer {:href "http://www.mongodb.org/" :target "_blank"} "mongodb"] " | "
+    [:a.footer {:href "http://getskeleton.com/" :target "_blank"} "skeleton"]]
+   [:small.align-right "Source code at " 
+    [:a.footer {:href "https://github.com/kranthie/tm-ideas-app" :target "_blank"} "github"]]])
 
 ; Builds html body.
 (defpartial build-body [links content]
