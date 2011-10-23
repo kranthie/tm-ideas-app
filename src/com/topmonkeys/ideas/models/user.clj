@@ -12,7 +12,6 @@
 
 ;; Common
 (defn valid-user? [{:keys [username password name email] :as user}]
-  (println user)
   (vali/rule (vali/has-value? username)
              [:username "There must be a username."])
   (vali/rule (vali/has-value? password)
@@ -102,4 +101,5 @@
   []
   (let [user {:username "admin" :password "password" :name "Administrator" :email "temp@example.com"}]
     (when-not (get-user-by-username (:username user))
-      (add-user user))))
+          (with-mongo db/connection
+      (insert! users-coll {:id (db/get-next-id users-coll) :username (:username user) :password (:password user) :name (:name user) :email (:email user) :created-at (to-long (now))})))))
