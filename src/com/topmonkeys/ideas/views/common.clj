@@ -5,6 +5,7 @@
 
 ; Include files
 (def includes {:jquery (include-js "http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js")
+               :fb-js (include-js "/js/fb.js")
                :base (include-css "/css/base.css")
                :layout (include-css "/css/layout.css")
                :skeleton (include-css "/css/skeleton.css")
@@ -29,6 +30,8 @@
 ; Builds html header.
 (defpartial build-header [title include-files]
   [:head
+   [:meta { :property "fb:app_id" :content "306009122744195" }]
+   [:script {:src "http://connect.facebook.net/en_US/all.js#xfbml=1"}]
    [:title title]
    (map #(get includes %) include-files)])
 

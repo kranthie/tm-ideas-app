@@ -119,3 +119,7 @@ a.footer img.footer {
 	padding: 50px 5px 5px 5 px;
 	margin: 5px 5px 5px 5 px;
 }
+
+.fb-comments, .fb-comments iframe[style] {
+	width: 100% !important;
+}

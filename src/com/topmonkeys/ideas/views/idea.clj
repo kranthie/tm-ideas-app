@@ -35,6 +35,15 @@
   (vali/on-error :comment error-text)
   (text-area {:placeholder "comment"} :comment))
 
+(comment [:div.doc-section
+        (when  (users/is-admin?)
+           (form-to [:post (str "/ideas/idea/view/" handle "/add-comment")]
+                    (new-comment-partial)
+                    (submit-button {:class "submit"} "add comment")))
+        [:hr.small]
+        [:h4 (str (count comments) " Comments")] 
+        (map comment-partial (sort-by :created-at #(compare %2 %1) comments))])
+
 (defpartial idea-partial [show-comments {:keys [title username handle html-description created-at comments] :as idea}]
   (when idea
     [:div
@@ -43,14 +52,7 @@
       [:h6 "Added by " (link-to (str "/ideas/user/" username) username) " " (ideas/get-elapsed-time (date-util/from-long created-at))]]
      [:div.doc-section html-description]
      (if show-comments
-       [:div.doc-section
-        (when  (users/is-admin?)
-           (form-to [:post (str "/ideas/idea/view/" handle "/add-comment")]
-                    (new-comment-partial)
-                    (submit-button {:class "submit"} "add comment")))
-        [:hr.small]
-        [:h4 (str (count comments) " Comments")] 
-        (map comment-partial (sort-by :created-at #(compare %2 %1) comments))]
+       [:div.fb-comments {:data-href (str "ideas.topmonkeys.com/ideas/idea/view/" handle) :data-num-posts "10" }]
        [:hr.small])]))
 
 (defpage [:post "/ideas/idea/view/:handle/add-comment"] {:keys [handle comment]}
